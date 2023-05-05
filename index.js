@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
+require('dotenv').config();
 const mongoose = require("mongoose");
+
 
 const port = 5000;
 
@@ -10,7 +12,7 @@ app.get("/", (req, res) => {
     });
 });
 
-mongoose.connect("mongodb+srv://kanjob:hey123@kanjobcluster.0tah6zy.mongodb.net/KanJobDB?retryWrites=true&w=majority")
+mongoose.connect(process.env.MONGO_URI)
 .then(() => {
     // connect to db
     console.log("connected to mongodb");
