@@ -15,6 +15,20 @@ router.get("/", async (req, res) => {
     }
 });
 
+// get one
+router.get("/:email", async (req, res) => {
+    const userEmail = req.params.email;
+    try {
+        const user = await Users.findOne({ email: userEmail });
+        res.status(200).json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: `could not get user ${userEmail} from db`
+        });
+    }
+}); 
+
 // add
 router.post("/add", async (req, res) => {
     try {
