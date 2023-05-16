@@ -76,5 +76,26 @@ router.patch("/update/:id", async (req, res) => {
 });
 
 // delete
+router.delete("/delete/:id", async (req, res) => {
+    const jobId = req.params.id;
+    try {
+        const job = await Jobs.findOne({ job_id: jobId });
+        if (job) {
+            await Jobs.deleteOne({ job_id: jobId });
+            res.status(200).json({
+                message: `job deleted successfully`
+            });
+        } else {
+            res.status(404).json({
+                message: `job #${jobId} does not exist`
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: `could not delete job #${jobId}`
+        });
+    }
+});
 
 module.exports = router;
