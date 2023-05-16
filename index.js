@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 require('dotenv').config();
 const mongoose = require("mongoose");
 const usersRouter = require("./routes/usersRoute");
@@ -8,6 +9,7 @@ const port = 5000;
 
 // general middleware
 app.use(express.json());
+app.use(cors({ origin: "*" }));
 
 // routes
 app.use("/users", usersRouter);
